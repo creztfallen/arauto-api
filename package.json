@@ -2,10 +2,9 @@
   "name": "arauto",
   "version": "1.0.0",
   "description": "CRUD with dices",
-  "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "start": "node server.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "author": "Mateus Moreno (creztfallen)",
   "license": "ISC",
