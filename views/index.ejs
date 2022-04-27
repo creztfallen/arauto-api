@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY APP</title>
+</head>
+<body>
+    <h1>May Node and Expres be with you.</h1>
+
+    <form action="/dices" method="POST">
+        <input type="text" placeholder="playerName" name="playerName">
+        <input type="text" placeholder="diceType" name="diceType">
+        <button type="submit">Submit</button>
+    </form>
+    
+    
+
+    <ul class="dices">
+        <!--Loop through quotes-->
+        <% for(var i = 0; i < dices.length; i++) {%>
+            <li class="dice">
+                <!--Output name from the iterated quote object-->
+                <span><%= dices[i].playerName %></span>:
+                <!--Output quote from the iterated quote object-->
+                <span><%= dices[i].diceValue %></span>
+            </li>
+        <% } %>    
+    </ul>
+
+<script src ='main.js'> </script>
+
+</body>
+</html>
