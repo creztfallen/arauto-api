@@ -4,15 +4,50 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MY APP</title>
+    <title>Arauto</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+    background: #424549;
+    margin-left: 380px;
+    margin-right:380px;
+    margin-top:220px;
+}
+h1{
+    color:rgb(164, 209, 164);
+    font-family: serif;
+}
+input{
+    margin-right: 10px;
+    border:double rgb(117, 163, 117) 10px;
+    border-radius: 2%;
+}
+.dices{
+    color:rgb(164, 209, 164);
+    margin-left: -32px;
+}
+.dices li {
+    list-style: none;
+    letter-spacing:0,5px;
+    font-family:serif;
+    font-size: 15px;
+}
+button{
+    background-color: rgb(164, 209, 164);
+    border:aliceblue 2px solid;
+    border-radius: 5%;
+}
+    </style>
+
+
 </head>
 <body>
-    <h1>May Node and Expres be with you.</h1>
+    <h1>Roll Your Dice!</h1>
 
     <form action="/dices" method="POST">
-        <input type="text" placeholder="playerName" name="playerName">
-        <input type="text" placeholder="diceType" name="diceType">
-        <button type="submit">Submit</button>
+        <input style="padding: 8px" type=" text" placeholder="playerName" name="playerName">
+        <input style="padding: 8px" type=" text" placeholder="diceType" name="diceType">
+        <button style="padding:8px" type="submit">Roll</button>
     </form>
     
     
