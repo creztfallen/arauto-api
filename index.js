@@ -34,8 +34,7 @@ function randomIntFromInterval(min, max) {
 MongoClient.connect(MONGOURL)
   .then((client) => {
     console.log("Successfully connected to the database".blue);
-    const db = client.db("star-wars-quotes");
-    const quotesCollection = db.collection("quotes");
+    const db = client.db("arauto");
     const dicesCollection = db.collection("dices");
 
     app.get("/", (req, res) => {
