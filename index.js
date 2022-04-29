@@ -1,6 +1,7 @@
 const dotenv = require("dotenv");
 const colors = require("colors");
 const bodyParser = require("body-parser");
+const cors = require('cors');
 const MongoClient = require("mongodb").MongoClient;
 const express = require("express");
 const { sendFile } = require("express/lib/response");
@@ -22,6 +23,8 @@ app.set("view-engine", "ejs");
 //Using body-parser ----------------------------------------------------------
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.use(cors())
 //-----------------------------
 
 app.use(express.static("public"));
