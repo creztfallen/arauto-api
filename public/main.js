@@ -1,14 +1,16 @@
 // Front
 
-const update = document.querySelector("#update-button");
+const get = document.querySelector(".dices");
 
-// update.addEventListener("click", (_) => {
-//   fetch("/dices", {
-//     method: "put",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({
-//       name: "Darth Vader",
-//       quote: "I find your lack of faith disturbing.",
-//     }),
-//   });
-// });
+setInterval(() => {
+  fetch("/dices")
+    .then((resp) => resp.json())
+    .then(({ dices }) => {
+      console.log(dices);
+      let ul = "";
+      for (var i = 0; i < dices.length; i++) {
+        ul += `<li>${dices[i].playerName}: ${dices[i].diceValue}</li>`;
+      }
+      get.innerHTML = ul;
+    });
+}, 1000);
