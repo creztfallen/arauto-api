@@ -4,7 +4,7 @@ const get = document.querySelector(".dices");
 
 setInterval(() => {
   fetch("/dices")
-    .then((resp) => resp.json())
+    .then((res) => res.json())
     .then(({ dices }) => {
       console.log(dices);
       let ul = "";
@@ -12,5 +12,31 @@ setInterval(() => {
         ul += `<li>${dices[i].playerName}: ${dices[i].diceValue}</li>`;
       }
       get.innerHTML = ul;
-    });
-}, 1000);
+    })
+    .catch((error) => console.log(error));
+}, 5000);
+
+const myForm = document.getElementById("form");
+// const formData = new FormData(myForm);
+
+myForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  fetch("/dices", {
+    method: "POST",
+    body: JSON.stringify({
+      playerName: document.getElementById("playerName").value,
+      diceType: document.getElementById("diceType").value,
+    }),
+    headers: {
+      "Content-type": "application/json",
+    },
+  })
+    .then((res) => {
+      if (res.status != 200) {
+        throw new Error("Bad server response");
+      }
+      return res.json();
+    })
+    .then((res) => console.log(res))
+    .catch((error) => console.log(error));
+});

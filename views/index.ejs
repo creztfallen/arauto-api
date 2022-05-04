@@ -32,7 +32,7 @@ input{
     font-family:serif;
     font-size: 15px;
 }
-button{
+.roll{
     background-color: rgb(164, 209, 164);
     border:aliceblue 2px solid;
     border-radius: 5%;
@@ -44,10 +44,10 @@ button{
 <body>
     <h1>Roll Your Dice!</h1>
 
-    <form action="/dices" method="POST">
-        <input style="padding: 8px" type=" text" placeholder="playerName" name="playerName">
-        <input style="padding: 8px" type=" text" placeholder="diceType" name="diceType">
-        <button style="padding:8px" type="submit">Roll</button>
+    <form  id = "form">
+        <input style="padding: 8px" type=" text" placeholder="playerName" name="playerName" id="playerName">
+        <input style="padding: 8px" type=" text" placeholder="diceType" name="diceType" id="diceType">
+        <button id="roll" style="padding:8px" type="submit">Roll</button>
     </form>
     
     

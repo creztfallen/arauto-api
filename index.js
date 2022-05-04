@@ -63,7 +63,6 @@ MongoClient.connect(MONGOURL)
     });
 
     app.post("/dices", (req, res) => {
-      console.log(req.body);
       const playerName = req.body.playerName;
       const diceType = req.body.diceType;
       const diceValue = randomIntFromInterval(1, diceType);
@@ -74,8 +73,7 @@ MongoClient.connect(MONGOURL)
           diceValue: diceValue,
         })
         .then((result) => {
-          // res.json({ roll: diceValue });
-          res.redirect("/");
+          res.json({ roll: diceValue });
         })
         .catch((error) => console.error(error));
     });
