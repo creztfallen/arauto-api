@@ -1,6 +1,4 @@
 const dotenv = require("dotenv");
-// const Joi = require("joi");
-// Joi.objectId = require("joi-objectid")(Joi);
 const mongoose = require("mongoose");
 const users = require("./routes/users");
 const dices = require("./routes/dices");
