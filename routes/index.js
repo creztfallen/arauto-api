@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
       res.render("index.ejs", { dices: result });
     })
     .catch((error) => {
-      console.log(error);
+      res.status(400).json({ message: error });
     });
 });
 

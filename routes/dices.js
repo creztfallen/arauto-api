@@ -1,5 +1,6 @@
 const { Dices, validate } = require("../models/dices");
 const express = require("express");
+const random = require("../utils");
 const res = require("express/lib/response");
 const { connection } = require("mongoose");
 const router = express.Router();
@@ -14,9 +15,8 @@ router.post("/", async (req, res) => {
   const diceValue = randomIntFromInterval(1, diceType);
 
   const { error } = validate(req.body);
-  if (error) {
-    return res.status(400).send(error.details[0].message);
-  } else {
+
+  try {
     dices = new Dices({
       playerName: req.body.playerName,
       diceType: req.body.diceType,
@@ -24,6 +24,8 @@ router.post("/", async (req, res) => {
     });
     await dices.save();
     res.json({ diceValue: diceValue });
+  } catch {
+    return res.status(400).send({ message: error.details[0].message });
   }
 });
 
@@ -32,7 +34,9 @@ router.get("/", (req, res) => {
     .then((result) => {
       res.json({ dices: result });
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      res.status(400).json({ message: error });
+    });
 });
 
 module.exports = router;

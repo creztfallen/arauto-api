@@ -1,6 +1,6 @@
 const dotenv = require("dotenv");
-const Joi = require("joi");
-Joi.objectId = require("joi-objectid")(Joi);
+// const Joi = require("joi");
+// Joi.objectId = require("joi-objectid")(Joi);
 const mongoose = require("mongoose");
 const users = require("./routes/users");
 const dices = require("./routes/dices");
@@ -31,11 +31,6 @@ app.use(bodyParser.json());
 //-----------------------------
 
 app.use(express.static("public"));
-
-function randomIntFromInterval(min, max) {
-  // min and max included
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
 
 mongoose
   .connect(MONGOURL)

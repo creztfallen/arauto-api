@@ -7,7 +7,6 @@ const Dices = mongoose.model(
     playerName: {
       type: String,
       required: false,
-      minlength: 1,
       maxlength: 15,
     },
     diceType: {
@@ -25,7 +24,7 @@ const Dices = mongoose.model(
 
 function validateDices(dices) {
   const schema = Joi.object({
-    playerName: Joi.string().min(1).max(15),
+    playerName: Joi.string().max(15),
     diceType: Joi.number().max(1024),
     diceValue: Joi.number().max(1024),
   });
