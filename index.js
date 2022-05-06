@@ -4,6 +4,7 @@ Joi.objectId = require("joi-objectid")(Joi);
 const mongoose = require("mongoose");
 const users = require("./routes/users");
 const dices = require("./routes/dices");
+const index = require("./routes/index");
 const colors = require("colors");
 const bodyParser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
@@ -43,6 +44,7 @@ mongoose
 
     app.use("/users", users);
     app.use("/dices", dices);
+    app.use("/", index);
 
     const server = app.listen(PORT, () =>
       console.log(
@@ -51,34 +53,3 @@ mongoose
     );
   })
   .catch((err) => console.error("Something went wrong", err));
-
-// Connecting with raw Mongodb -----------------------------------------------
-MongoClient.connect(MONGOURL)
-  .then((client) => {
-    console.log("Successfully connected to the database".blue);
-    const db = client.db("arauto");
-    const dicesCollection = db.collection("dices");
-    const usersCollection = db.collection("users");
-
-    app.get("/", (req, res) => {
-      db.collection("dices")
-        .find()
-        .toArray()
-        .then((result) => {
-          res.render("index.ejs", { dices: result });
-          // res.json(result);
-        })
-        .catch((error) => console.error(error));
-    });
-
-    // app.get("/dices", (req, res) => {
-    //   db.collection("dices")
-    //     .find()
-    //     .toArray()
-    //     .then((result) => {
-    //       res.json({ dices: result });
-    //     })
-    //     .catch((error) => console.error(error));
-    // });
-  })
-  .catch((error) => console.log(error));

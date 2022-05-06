@@ -27,4 +27,12 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.get("/", (req, res) => {
+  Dices.find()
+    .then((result) => {
+      res.json({ dices: result });
+    })
+    .catch((error) => console.log(error));
+});
+
 module.exports = router;
