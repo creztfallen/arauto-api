@@ -1,6 +1,7 @@
 const { User, validate } = require("../models/users");
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcrypt");
 
 router.post("/", async (req, res) => {
   // First Validate The Request
@@ -19,10 +20,14 @@ router.post("/", async (req, res) => {
       password: req.body.password,
     });
     await user.save();
-    res.send(user);
   } catch {
     return res.status(400).send("That user already exists!");
   }
+
+  const salt = await bcrypt.genSalt(10);
+  user.password = await bcrypt.hash(user.password, salt);
+  await user.save();
+  res.send(user);
 });
 
 module.exports = router;
