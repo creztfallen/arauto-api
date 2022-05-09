@@ -7,14 +7,14 @@ const User = mongoose.model(
     userName: {
       type: String,
       required: true,
-      minlength: 5,
+      minlength: 3,
       maxlength: 50,
       unique: true,
     },
     playerName: {
       type: String,
       required: true,
-      minlength: 5,
+      minlength: 3,
       maxlength: 15,
     },
     password: {
@@ -28,8 +28,8 @@ const User = mongoose.model(
 
 function validateUser(user) {
   const schema = Joi.object({
-    userName: Joi.string().min(5).max(50).required(),
-    playerName: Joi.string().min(5).max(15).required(),
+    userName: Joi.string().min(3).max(50).required(),
+    playerName: Joi.string().min(3).max(15).required(),
     password: Joi.string().min(5).max(255).required(),
   });
   return schema.validate(user);
