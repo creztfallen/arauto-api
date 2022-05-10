@@ -3,9 +3,10 @@ const mongoose = require("mongoose");
 const users = require("./routes/users");
 const dices = require("./routes/dices");
 const index = require("./routes/index");
+const auth = require("./routes/auth");
 const colors = require("colors");
 const bodyParser = require("body-parser");
-const cors = require('cors');
+const cors = require("cors");
 const MongoClient = require("mongodb").MongoClient;
 const express = require("express");
 const { sendFile } = require("express/lib/response");
@@ -28,7 +29,7 @@ app.set("view-engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(cors())
+app.use(cors());
 //-----------------------------
 
 app.use(express.static("public"));
@@ -40,6 +41,7 @@ mongoose
 
     app.use("/users", users);
     app.use("/dices", dices);
+    app.use("/auth", auth);
     app.use("/", index);
 
     const server = app.listen(PORT, () =>
