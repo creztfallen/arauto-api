@@ -22,6 +22,7 @@ if (ENVIRONMENT !== "production") {
 
 const PORT = process.env.PORT || 5000;
 const MONGOURL = process.env.MONGOURL;
+const PrivateKey = process.env.PrivateKey;
 
 app.set("view-engine", "ejs");
 
@@ -33,6 +34,11 @@ app.use(cors());
 //-----------------------------
 
 app.use(express.static("public"));
+
+if (!PrivateKey) {
+  console.error("FATAL ERROR: PrivateKey is not defined.");
+  process.exit(1);
+}
 
 mongoose
   .connect(MONGOURL)

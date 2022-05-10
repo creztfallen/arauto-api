@@ -1,9 +1,14 @@
 const Joi = require("joi");
+const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
+const _ = require("lodash");
 const bcrypt = require("bcrypt");
 const { User } = require("../models/users");
 const express = require("express");
 const { func } = require("joi");
 const router = express.Router();
+
+dotenv.config({ path: "../config/config.env" });
 
 router.post("/", async (req, res) => {
   function validate(req) {
@@ -30,7 +35,11 @@ router.post("/", async (req, res) => {
     return res.status(400).send("Incorrect username or password!");
   }
 
-  res.send(true);
+  const PrivateKey = process.env.PrivateKey;
+  const token = jwt.sign({ _id: user._id }, PrivateKey);
+  res
+    .header("x-auth-token", token)
+    .send(_.pick(user, ["_id", "userName", "playerName"]));
 });
 
 module.exports = router;
