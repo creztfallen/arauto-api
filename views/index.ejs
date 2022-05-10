@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Arauto</title>
     
     <style>
-        body {
-    background: #424549;
-    margin-left: 380px;
-    margin-right:380px;
-    margin-top:220px;
+body{
+background-color: #23272a;
+        }
+.content {
+    width:700px;
+    margin-top:200px;
+    margin-left:375px;
+    background-color: #23272a;
 }
 h1{
     color:rgb(164, 209, 164);
@@ -36,12 +39,14 @@ input{
     background-color: rgb(164, 209, 164);
     border:aliceblue 2px solid;
     border-radius: 5%;
+    color:green;
 }
     </style>
 
 
 </head>
 <body>
+    <div class="content">
     <h1>Roll Your Dice!</h1>
 
     <form  id = "form">
@@ -63,7 +68,7 @@ input{
             </li>
         <% } %>    
     </ul>
-
+</div>
 <script src ='main.js'></script>
 
 </body>
