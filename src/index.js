@@ -17,7 +17,7 @@ const auth = require("./v1/routes/auth");
 const ENVIRONMENT = process.env.ENVIRONMENT;
 
 if (ENVIRONMENT !== "production") {
-  dotenv.config({ path: "./config/config.env" });
+  dotenv.config({ path: `./config/config.env` });
 }
 
 const PORT = process.env.PORT || 5000;
@@ -25,7 +25,7 @@ const MONGOURL = process.env.MONGOURL;
 const PrivateKey = process.env.PrivateKey;
 
 app.set("view-engine", "ejs");
-app.set('views', './src/views');
+app.set('views', `${__dirname}/views`);
 
 //Using body-parser ----------------------------------------------------------
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 app.use(cors());
 //-----------------------------
 
-app.use(express.static("public"));
+app.use(express.static(`${__dirname}/public`));
 
 if (!PrivateKey) {
   console.error("FATAL ERROR: PrivateKey is not defined.");
