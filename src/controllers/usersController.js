@@ -34,7 +34,8 @@ exports.updateUser = async (req, res) => {
     user = await User.findOneAndUpdate(
       { userName: req.body.userName },
       {
-        playerName,
+        playerName: req.body.userName,
+        password: req.body.password,
       }
     );
     await user.save();
@@ -53,5 +54,5 @@ exports.deleteUser = async (req, res) => {
   } catch {
     return res.status(400).send("Couldn't delete that user");
   }
-  res.status(200).send("Nice");
+  res.status(200).send("Nice.");
 };
