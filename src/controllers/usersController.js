@@ -27,3 +27,31 @@ exports.createNewUser = async (req, res) => {
   await user.save();
   res.send(user);
 };
+
+exports.updateUser = async (req, res) => {
+  let user;
+  try {
+    user = await User.findOneAndUpdate(
+      { userName: req.body.userName },
+      {
+        playerName,
+      }
+    );
+    await user.save();
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send("Couldn't update that user");
+  }
+  res.send(user);
+};
+
+exports.deleteUser = async (req, res) => {
+  let user;
+  try {
+    user = await User.findOneAndDelete({ userName: req.body.userName });
+    await user.save();
+  } catch {
+    return res.status(400).send("Couldn't delete that user");
+  }
+  res.status(200).send("Nice");
+};

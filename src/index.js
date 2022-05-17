@@ -1,23 +1,23 @@
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const colors = require("colors");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+
+const express = require("express");
+const app = express();
+
 const users = require("./v1/routes/users");
 const dices = require("./v1/routes/dices");
 const index = require("./v1/routes/index");
 const auth = require("./v1/routes/auth");
-const colors = require("colors");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const MongoClient = require("mongodb").MongoClient;
-const express = require("express");
-const { sendFile } = require("express/lib/response");
-const app = express();
 
 //---------------------------------------------------------------------------
 
 const ENVIRONMENT = process.env.ENVIRONMENT;
 
 if (ENVIRONMENT !== "production") {
-  dotenv.config({ path: "../config/config.env" });
+  dotenv.config({ path: "./config/config.env" });
 }
 
 const PORT = process.env.PORT || 5000;
