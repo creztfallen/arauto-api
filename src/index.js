@@ -25,6 +25,7 @@ const MONGOURL = process.env.MONGOURL;
 const PrivateKey = process.env.PrivateKey;
 
 app.set("view-engine", "ejs");
+app.set('views', './src/views');
 
 //Using body-parser ----------------------------------------------------------
 app.use(bodyParser.urlencoded({ extended: true }));
