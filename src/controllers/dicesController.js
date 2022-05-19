@@ -1,5 +1,6 @@
 const { Dices, validate } = require("../models/dices");
 const { random } = require("../../utils");
+const jwt = require("jsonwebtoken");
 
 exports.getAllDices = (req, res) => {
   Dices.find()
@@ -20,7 +21,7 @@ exports.createNewDice = async (req, res) => {
   try {
     dices = new Dices({
       playerName: req.body.playerName,
-      diceType: req.body.diceType,
+      diceType: diceType,
       diceValue: diceValue,
     });
     await dices.save();

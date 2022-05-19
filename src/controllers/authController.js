@@ -33,7 +33,10 @@ exports.autenticateUser = async (req, res) => {
   }
 
   const PrivateKey = process.env.PrivateKey;
-  const token = jwt.sign({ _id: user._id }, PrivateKey);
+  const token = jwt.sign(
+    { _id: user._id, userName: user.userName },
+    PrivateKey
+  );
   res
     .header("x-auth-token", token)
     .send({ ..._.pick(user, ["_id", "userName", "playerName"]), token });
