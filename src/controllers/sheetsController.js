@@ -16,7 +16,7 @@ exports.getAllSheets = (req, res) => {
 
   Sheets.find({ playerId: decoded._id })
     .then(async (result) => {
-      res.json({
+      res.status(200).json({
         sheets: result,
       });
     })
@@ -38,7 +38,7 @@ exports.getOneSheet = (req, res) => {
   console.log(decoded);
 
   sheets = Sheets.findOne({ _id: req.params.sheetId })
-    .then((result) => res.json(result))
+    .then((result) => res.status(200).json(result))
     .catch((error) => res.send(400).json({ message: error }));
 };
 
@@ -78,7 +78,7 @@ exports.createNewSheet = async (req, res) => {
       atributes: atributes,
     });
     await sheets.save();
-    res.json({ sheets });
+    res.status(200).json({ sheets });
   } catch {
     return res.status(400).send({ message: error.details[0].message });
   }
@@ -107,8 +107,30 @@ exports.updateSheet = async (req, res) => {
         atributes: req.body.atributes,
       }
     );
-    res.json(sheets);
+    res.status(200).json(sheets);
   } catch (error) {
-    return res.status(400).send({error});
+    return res.status(400).send({ error });
+  }
+};
+
+exports.deleteSheet = async (req, res) => {
+  let sheets;
+
+  try {
+    const token = req.headers.authorization.replace("Bearer ", "");
+
+    if (!jwt.verify(token, process.env.PrivateKey)) {
+      throw new Error();
+    }
+
+    const decoded = jwt.decode(token);
+
+    sheets = await Sheets.findOneAndDelete({
+      _id: req.params.sheetId,
+      playerId: decoded._id,
+    });
+    res.status(200).send("Sheet deleted!");
+  } catch (error) {
+    return res.status(400).send({ error });
   }
 };

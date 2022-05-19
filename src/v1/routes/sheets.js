@@ -6,5 +6,6 @@ router.get("/", sheetsController.getAllSheets);
 router.get("/:sheetId", sheetsController.getOneSheet);
 router.post("/", sheetsController.createNewSheet);
 router.patch("/:sheetId", sheetsController.updateSheet);
+router.delete("/:sheetId", sheetsController.deleteSheet);
 
 module.exports = router;
