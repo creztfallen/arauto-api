@@ -2,8 +2,6 @@ const { User, validate } = require("../models/users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const PrivateKey = process.env.PrivateKey;
-
 exports.createNewUser = async (req, res) => {
   // First Validate The Request
   const { error } = validate(req.body);
@@ -59,7 +57,7 @@ exports.updateUser = async (req, res) => {
     );
     res.send(user);
   } catch (error) {
-    return res.status(400).send({error});
+    return res.status(400).send({ error });
   }
 };
 
@@ -75,7 +73,6 @@ exports.deleteUser = async (req, res) => {
     }
 
     const decoded = jwt.decode(token);
-    console.log(decoded.userName);
 
     if (decoded._id !== req.body._id) {
       throw new Error("You can't delete this user.");
@@ -84,6 +81,6 @@ exports.deleteUser = async (req, res) => {
     user = await User.findOneAndDelete({ _id: req.body._id });
     res.status(200).send("User deleted.");
   } catch (error) {
-    return res.status(400).send({error});
+    return res.status(400).send({ error });
   }
 };
