@@ -1,5 +1,8 @@
 const { User, validate } = require("../models/users");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+const PrivateKey = process.env.PrivateKey;
 
 exports.createNewUser = async (req, res) => {
   // First Validate The Request
@@ -30,29 +33,57 @@ exports.createNewUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   let user;
+
   try {
+    const token = req.headers.authorization.replace("Bearer ", "");
+
+    // Verificando se o token é válido.
+    if (!jwt.verify(token, process.env.PrivateKey)) {
+      throw new Error();
+    }
+
+    // Destrinchando token
+    const decoded = jwt.decode(token);
+    console.log(decoded);
+
+    // Verificando se o usuario é dono da conta que vai ser modificada.
+    if (decoded._id !== req.body._id) {
+      throw new Error("You can't modify this user.");
+    }
+
     user = await User.findOneAndUpdate(
-      { userName: req.body.userName },
+      { _id: req.body._id },
       {
-        playerName: req.body.userName,
-        password: req.body.password,
+        playerName: req.body.playerName,
       }
     );
-    await user.save();
+    res.send(user);
   } catch (error) {
-    console.log(error);
-    return res.status(400).send("Couldn't update that user");
+    return res.status(400).send({error});
   }
-  res.send(user);
 };
 
 exports.deleteUser = async (req, res) => {
   let user;
+
   try {
-    user = await User.findOneAndDelete({ userName: req.body.userName });
-    await user.save();
-  } catch {
-    return res.status(400).send("Couldn't delete that user");
+    const token = req.headers.authorization.replace("Bearer ", "");
+    console.log(token);
+
+    if (!jwt.verify(token, process.env.PrivateKey)) {
+      throw new Error();
+    }
+
+    const decoded = jwt.decode(token);
+    console.log(decoded.userName);
+
+    if (decoded._id !== req.body._id) {
+      throw new Error("You can't delete this user.");
+    }
+
+    user = await User.findOneAndDelete({ _id: req.body._id });
+    res.status(200).send("User deleted.");
+  } catch (error) {
+    return res.status(400).send({error});
   }
-  res.status(200).send("Nice.");
 };

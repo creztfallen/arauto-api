@@ -11,6 +11,7 @@ const users = require("./v1/routes/users");
 const dices = require("./v1/routes/dices");
 const index = require("./v1/routes/index");
 const auth = require("./v1/routes/auth");
+const sheets = require("./v1/routes/sheets");
 
 //---------------------------------------------------------------------------
 
@@ -25,7 +26,7 @@ const MONGOURL = process.env.MONGOURL;
 const PrivateKey = process.env.PrivateKey;
 
 app.set("view-engine", "ejs");
-app.set('views', `${__dirname}/views`);
+app.set("views", `${__dirname}/views`);
 
 //Using body-parser ----------------------------------------------------------
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -46,10 +47,11 @@ mongoose
   .then(() => {
     console.log("Now connected to MongoDB!".blue);
 
-    app.use("/users", users);
-    app.use("/dices", dices);
-    app.use("/auth", auth);
     app.use("/", index);
+    app.use("/users", users);
+    app.use("/auth", auth);
+    app.use("/dices", dices);
+    app.use("/sheets", sheets);
 
     const server = app.listen(PORT, () =>
       console.log(
