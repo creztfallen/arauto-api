@@ -1,5 +1,5 @@
 const { Dices, validate } = require("../models/dices");
-const { random } = require("../../utils");
+const { random } = require("../../utils/utils");
 const jwt = require("jsonwebtoken");
 
 exports.getAllDices = (req, res) => {

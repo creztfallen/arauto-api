@@ -3,6 +3,6 @@ const router = express.Router();
 const usersController = require("../../controllers/usersController");
 
 router.post("/", usersController.createNewUser);
-router.patch("/", usersController.updateUser);
-router.delete("/", usersController.deleteUser);
+router.patch("/:userId", usersController.updateUser);
+router.delete("/:userId", usersController.deleteUser);
 module.exports = router;
