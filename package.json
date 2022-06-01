@@ -4,11 +4,13 @@
   "description": "CRUD with dices",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "test": "jest --testEnvironment=node --verbose --forceExit --watchAll --maxWorkers=1"
   },
   "author": "Mateus Moreno (creztfallen)",
   "license": "ISC",
-  "devDependencies": {
+  "devDependencies": {  
+    "jest": "^28.1.0",
     "nodemon": "^2.0.15"
   },
   "dependencies": {
